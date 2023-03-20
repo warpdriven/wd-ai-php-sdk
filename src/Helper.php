@@ -87,6 +87,40 @@ class Helper
         return self::response($response);
     }
 
+        /**
+     * product_description
+     * $api_key         Visual Search Search engine authorization key
+     */
+    public static function product_description($api_key,$args)
+    {
+        $search_url = 'https://nlp-stg.warp-driven.com/latest/writer/product_description';
+        $response = wp_remote_post($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"body"=>$args));
+        return self::response($response);
+    }
+
+    /**
+     * article
+     * $api_key         Visual Search Search engine authorization key
+     */
+    public static function article($api_key,$args)
+    {
+        $search_url = 'https://nlp-stg.warp-driven.com/latest/writer/article';
+        $response = wp_remote_post($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"body"=>$args));
+        return self::response($response);
+    }
+
+     /**
+     * translate
+     * $api_key         Visual Search Search engine authorization key
+     */
+    public static function translate($api_key,$args)
+    {
+        $search_url = 'https://nlp-stg.warp-driven.com/latest/writer/translate';
+        $response = wp_remote_post($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"body"=>$args));
+        return self::response($response);
+    }
+
+
     /**
      * Standard return results
      */
