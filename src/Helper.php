@@ -117,7 +117,7 @@ class Helper
     public static function get_user_exsited($email)
     {
         $search_url = 'https://api-stg.warp-driven.com/erp_user?erp_user_email='.$email;
-        $response = wp_remote_get($search_url,array());
+        $response = wp_remote_get($search_url,array("timeout"=>300));
         return self::response($response);
     }
 
