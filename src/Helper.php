@@ -98,6 +98,14 @@ class Helper
         return self::response($response);
     }
 
+
+    public static function assistant($api_key,$args)
+    {
+        $search_url = 'https://nlp-stg.warp-driven.com/latest/writer/assistant';
+        $response = wp_remote_post($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"body"=>$args,"timeout"=>300));
+        return self::response($response);
+    }
+
     /**
      * erp_user_create
      * $args         Create Erp User
