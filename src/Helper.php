@@ -136,7 +136,7 @@ class Helper
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"timeout"=>1200));
         return self::response($response);
     }
-    public static function get_tasks($api_key,$args)
+    public static function get_tasks($api_key)
     {
         $search_url = 'https://nlp-stg.warp-driven.com/latest/writer/history?top=20';
         // $search_url = 'https://nlp.warp-driven.com/latest/writer/assistant';
