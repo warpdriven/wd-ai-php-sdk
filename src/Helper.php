@@ -213,6 +213,7 @@ class Helper
     public static function response($response,$args='{}'){
         error_log(print_r($response, true));
         if (!is_wp_error($response)) {
+            return $response['response'];
             $result = json_decode($response['body']);
             $result->code = $response['response']?$response['response']['code']:200;
             if($result->detail){
