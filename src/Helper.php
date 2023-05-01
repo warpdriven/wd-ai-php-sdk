@@ -60,7 +60,7 @@ class Helper
                 )
             );
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key),"timeout"=>1200));
-        return self::response_by_get($response);
+        return self::response($response);
     }
 
 
@@ -105,7 +105,7 @@ class Helper
         // $search_url = 'https://data.warp-driven.com/latest/product/get_vs_credit_status?plan_id=1';
         $search_url = 'https://ai-stg.warp-driven.com/latest/vs/get_vs_credit_status?plan_id=1';
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key),"timeout"=>1200));
-        return self::response_by_get($response);
+        return self::response($response);
     }
 
     /**
@@ -197,7 +197,7 @@ class Helper
         $search_url = 'https://api-stg.warp-driven.com/erp_user?erp_user_email='.$email;
         // $search_url = 'https://api.warp-driven.com/erp_user?erp_user_email='.$email;
         $response = wp_remote_get($search_url,array("timeout"=>1200));
-        return self::response_by_get($response);
+        return self::response($response);
     }
 
     /**
@@ -244,7 +244,6 @@ class Helper
     public static function response($response,$args='{}'){
         error_log(print_r($response, true));
         if (!is_wp_error($response)) {
-            return $response['response'];
             $result = json_decode($response['body']);
             $result->code = $response['response']?$response['response']['code']:200;
             if($result->detail){
