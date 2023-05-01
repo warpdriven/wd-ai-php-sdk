@@ -139,6 +139,7 @@ class Helper
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"timeout"=>1200));
         return self::response_by_get($response);
     }
+
     public static function get_active_task_info($api_key)
     {
         $search_url = 'https://nlp-stg.warp-driven.com/latest/writer/active_task_info';
@@ -146,6 +147,7 @@ class Helper
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"timeout"=>1200));
         return self::response_by_get($response);
     }
+
     public static function get_task($api_key,$args)
     {
         $search_url = 'https://nlp-stg.warp-driven.com/latest/writer/task?task_id='.$args;
@@ -153,12 +155,24 @@ class Helper
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"timeout"=>1200));
         return self::response_by_get($response);
     }
+
     public static function get_tasks($api_key)
     {
         $search_url = 'https://nlp-stg.warp-driven.com/latest/writer/history?top=20';
         // $search_url = 'https://nlp.warp-driven.com/latest/writer/assistant';
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"timeout"=>1200));
         return self::response_by_get($response);
+    }
+
+     /**
+     * 2023 04 18
+     */
+    public static function get_task_status($api_key,$args)
+    {
+        $search_url = 'https://nlp-stg.warp-driven.com/latest/writer/task_status';
+        // $search_url = 'https://nlp.warp-driven.com/latest/writer/assistant';
+        $response = wp_remote_post($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
+        return self::response($response);
     }
 
     /**
