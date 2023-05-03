@@ -5,13 +5,22 @@ namespace WarpDriven\PhpSdk;
 class Helper
 {
 
-    public static $WARP_AI_HOST = "https://ai-stg.warp-driven.com/";
+    // public static $WARP_AI_HOST = "https://ai-stg.warp-driven.com/";
 
-    public static $WARP_NLP_HOST = "https://nlp-stg.warp-driven.com/";
+    // public static $WARP_NLP_HOST = "https://nlp-stg.warp-driven.com/";
 
-    public static $WARP_DATA_HOST = "https://data-stg.warp-driven.com/";
+    // public static $WARP_DATA_HOST = "https://data-stg.warp-driven.com/";
 
-    public static $WARP_API_HOST = "https://api-stg.warp-driven.com/";
+    // public static $WARP_API_HOST = "https://api-stg.warp-driven.com/";
+
+
+    public static $WARP_AI_HOST = "https://ai.warp-driven.com/";
+
+    public static $WARP_NLP_HOST = "https://nlp.warp-driven.com/";
+
+    public static $WARP_DATA_HOST = "https://data.warp-driven.com/";
+
+    public static $WARP_API_HOST = "https://api.warp-driven.com/";
 
     /**
      * Query similar products according to product ID
