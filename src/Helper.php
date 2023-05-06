@@ -262,7 +262,14 @@ class Helper
      */
     public static function response_by_get($response,$args='{}'){
         if (!is_wp_error($response)) {
-            return $response['response'];
+            $result = json_decode($response['body']);
+            if(!$result) return $response;
+            $result->code = $response['response']?$response['response']['code']:200;
+            if($result->detail){
+                $result->status = false;
+                $result->msg = $result->detail;
+            }
+            return $result;
         }else{
             return $response;
         }
