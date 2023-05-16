@@ -189,7 +189,7 @@ class Helper
      */
     public static function erp_user_create($args)
     {
-        $search_url = self::$WARP_API_HOST.'erp_user/create';
+        $search_url = self::$WARP_API_HOST.'/erp_user/create';
         $response = wp_remote_post($search_url,array("headers"=>array("Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
         return self::response($response);
     }
@@ -201,7 +201,7 @@ class Helper
      */
     public static function get_user_exsited($email)
     {
-        $search_url = self::$WARP_API_HOST.'erp_user?erp_user_email='.$email;
+        $search_url = self::$WARP_API_HOST.'/erp_user?erp_user_email='.$email;
         $response = wp_remote_get($search_url,array("timeout"=>1200));
         return self::response($response);
     }
@@ -212,7 +212,7 @@ class Helper
      */
     public static function create_erp_user($args)
     {
-        $search_url = self::$WARP_API_HOST.'erp_user/create';
+        $search_url = self::$WARP_API_HOST.'/erp_user/create';
         $response = wp_remote_post($search_url,array("headers"=>array("Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
         return self::response($response);
     }
@@ -223,7 +223,7 @@ class Helper
      */
     public static function my_website($args)
     {
-        $search_url = self::$WARP_API_HOST.'my_website';
+        $search_url = self::$WARP_API_HOST.'/my_website';
         $response = wp_remote_post($search_url,array("headers"=>array("Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
         return self::response($response);
     }
@@ -234,7 +234,7 @@ class Helper
      */
     public static function create_my_website($args)
     {
-        $search_url = self::$WARP_API_HOST.'my_website/create';
+        $search_url = self::$WARP_API_HOST.'/my_website/create';
         $response = wp_remote_post($search_url,array("headers"=>array("Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
         return self::response($response);
     }
