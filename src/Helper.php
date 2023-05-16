@@ -4,19 +4,27 @@ namespace WarpDriven\PhpSdk;
 
 class Helper
 {
-    $env_obj = new WDEnv()
-    $env_value = $env_obj->env_value
+    private static $AI_URL;
+    private static $DATA_URL;
+    private static $API_URL;
+    private static $NLP_URL;
 
-    if ($env_value == 'prod') {
-        $AI_URL = 'https://ai.warp-driven.com/latest'
-        $DATA_URL = 'https://data.warp-driven.com/latest'
-        $API_URL = 'https://api.warp-driven.com'
-        $NLP_URL = 'https://nlp.warp-driven.com/latest'
-    }else{
-        $AI_URL = 'https://ai-stg.warp-driven.com/latest'
-        $DATA_URL = 'https://data-stg.warp-driven.com/latest'
-        $API_URL = 'https://api-stg.warp-driven.com'
-        $NLP_URL = 'https://nlp-stg.warp-driven.com/latest'
+    public function __construct()
+    {
+        $env_obj = new WDEnv();
+        $env_value = $env_obj->env_value;
+
+        if ($env_value == 'prod') {
+            self::$AI_URL = 'https://ai.warp-driven.com/latest';
+            self::$DATA_URL = 'https://data.warp-driven.com/latest';
+            self::$API_URL = 'https://api.warp-driven.com';
+            self::$NLP_URL = 'https://nlp.warp-driven.com/latest';
+        } else {
+            self::$AI_URL = 'https://ai-stg.warp-driven.com/latest';
+            self::$DATA_URL = 'https://data-stg.warp-driven.com/latest';
+            self::$API_URL = 'https://api-stg.warp-driven.com';
+            self::$NLP_URL = 'https://nlp-stg.warp-driven.com/latest';
+        }
     }
     
     /**
@@ -39,7 +47,7 @@ class Helper
      */
     public static function visual_search($api_key, $product_id)
     {
-        $search_url = $AI_URL . '/latest/vs/internal_search';
+        $search_url = self::$AI_URL . '/latest/vs/internal_search';
         $search_url .= '?' . http_build_query(array(
                     'shop_variant_id' => $product_id
                 )
@@ -66,7 +74,7 @@ class Helper
      */
     public static function handle_history($api_key, $page_no,$page_size)
     {
-        $search_url = $DATA_URL . '/product/handle_history';
+        $search_url = self::$DATA_URL . '/product/handle_history';
         $search_url .= '?' . http_build_query(array(
                     'page_no' => $page_no,
                     'page_size' => $page_size
@@ -85,7 +93,7 @@ class Helper
      */
     public static function init_products($api_key, $args)
     {
-        $search_url = $DATA_URL . '/product/upsert/';
+        $search_url = self::$DATA_URL . '/product/upsert/';
         $response = wp_remote_post($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
         return self::response($response);
     }
@@ -113,7 +121,7 @@ class Helper
      */
     public static function get_vs_credit_status($api_key)
     {
-        $search_url = $AI_URL . '/vs/get_vs_credit_status?plan_id=1';
+        $search_url = self::$AI_URL . '/vs/get_vs_credit_status?plan_id=1';
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key),"timeout"=>1200));
         return self::response_by_get($response);
     }
@@ -124,7 +132,7 @@ class Helper
      */
     public static function gpt($api_key,$args)
     {
-        $search_url = $NLP_URL . '/writer/gpt';
+        $search_url = self::$NLP_URL . '/writer/gpt';
         $response = wp_remote_post($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
         return self::response($response);
     }
@@ -183,25 +191,25 @@ class Helper
      */
     public static function get_all_task_info($api_key)
     {
-        $search_url = $NLP_URL . '/writer/all_task_info';
+        $search_url = self::$NLP_URL . '/writer/all_task_info';
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"timeout"=>1200));
         return self::response_by_get($response);
     }
     public static function get_active_task_info($api_key)
     {
-        $search_url = $NLP_URL . '/writer/active_task_info';
+        $search_url = self::$NLP_URL . '/writer/active_task_info';
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"timeout"=>1200));
         return self::response_by_get($response);
     }
     public static function get_task($api_key,$args)
     {
-        $search_url = $NLP_URL . '/writer/task?task_id='.$args;
+        $search_url = self::$NLP_URL . '/writer/task?task_id='.$args;
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"timeout"=>1200));
         return self::response_by_get($response);
     }
     public static function get_tasks($api_key)
     {
-        $search_url = $NLP_URL . '/writer/history?top=20';
+        $search_url = self::$NLP_URL . '/writer/history?top=20';
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"timeout"=>1200));
         return self::response_by_get($response);
     }
@@ -212,7 +220,7 @@ class Helper
      */
     public static function erp_user_create($args)
     {
-        $search_url = $API_URL . '/erp_user/create';
+        $search_url = self::$API_URL . '/erp_user/create';
         $response = wp_remote_post($search_url,array("headers"=>array("Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
         return self::response($response);
     }
