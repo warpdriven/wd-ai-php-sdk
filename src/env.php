@@ -4,5 +4,5 @@ namespace WarpDriven\PhpSdk;
 
 class WDEnv
 {
-    public $env_value = 'stg'
+    public $env_value = 'stg';
 }
