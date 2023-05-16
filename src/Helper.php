@@ -9,12 +9,9 @@ class Helper
     private static $WARP_API_HOST;
     private static $WARP_NLP_HOST;
 
-    public function __construct()
+    public static function init()
     {
-        $env_obj = new WDEnv();
-        $env_value = $env_obj->env_value;
-
-        if ($env_value == 'prod') {
+        if (WDEnv::$env_value == 'prod') {
             self::$WARP_AI_HOST = 'https://ai.warp-driven.com/latest';
             self::$WARP_DATA_HOST = 'https://data.warp-driven.com/latest';
             self::$WARP_API_HOST = 'https://api.warp-driven.com';
@@ -47,7 +44,7 @@ class Helper
      */
     public static function visual_search($api_key, $product_id)
     {
-        $search_url =  self::$WARP_AI_HOST.'latest/vs/internal_search';
+        $search_url =  self::$WARP_AI_HOST.'/vs/internal_search';
         $search_url .= '?' . http_build_query(array(
                     'shop_variant_id' => $product_id
                 )
@@ -74,7 +71,7 @@ class Helper
      */
     public static function handle_history($api_key, $page_no,$page_size)
     {
-        $search_url = self::$WARP_DATA_HOST.'latest/product/handle_history';
+        $search_url = self::$WARP_DATA_HOST.'/product/handle_history';
         $search_url .= '?' . http_build_query(array(
                     'page_no' => $page_no,
                     'page_size' => $page_size
@@ -93,7 +90,7 @@ class Helper
      */
     public static function init_products($api_key, $args)
     {
-        $search_url = self::$WARP_DATA_HOST.'latest/product/upsert/';
+        $search_url = self::$WARP_DATA_HOST.'/product/upsert/';
         $response = wp_remote_post($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
         return self::response($response);
     }
@@ -110,7 +107,7 @@ class Helper
      */
     public static function delete_product($api_key, $args)
     {
-        $search_url = self::$WARP_DATA_HOST.'latest/product/delete/';
+        $search_url = self::$WARP_DATA_HOST.'/product/delete/';
         $response = wp_remote_request($search_url,array("method"=>"DELETE","headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
         return self::response($response);
     }
@@ -121,7 +118,7 @@ class Helper
      */
     public static function get_vs_credit_status($api_key)
     {
-        $search_url = self::$WARP_AI_HOST.'latest/vs/get_vs_credit_status?plan_id=1';
+        $search_url = self::$WARP_AI_HOST.'/vs/get_vs_credit_status?plan_id=1';
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key),"timeout"=>1200));
         return self::response($response);
     }
@@ -132,7 +129,7 @@ class Helper
      */
     public static function gpt($api_key,$args)
     {
-        $search_url = self::$WARP_NLP_HOST.'latest/writer/gpt';
+        $search_url = self::$WARP_NLP_HOST.'/writer/gpt';
         $response = wp_remote_post($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
         return self::response($response);
     }
@@ -140,7 +137,7 @@ class Helper
 
     public static function assistant($api_key,$args)
     {
-        $search_url = self::$WARP_NLP_HOST.'latest/writer/assistant';
+        $search_url = self::$WARP_NLP_HOST.'/writer/assistant';
         $response = wp_remote_post($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
         return self::response($response);
     }
@@ -150,28 +147,28 @@ class Helper
      */
     public static function get_all_task_info($api_key)
     {
-        $search_url = self::$WARP_NLP_HOST.'latest/writer/all_task_info';
+        $search_url = self::$WARP_NLP_HOST.'/writer/all_task_info';
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"timeout"=>1200));
         return self::response_by_get($response);
     }
 
     public static function get_active_task_info($api_key)
     {
-        $search_url = self::$WARP_NLP_HOST.'latest/writer/active_task_info';
+        $search_url = self::$WARP_NLP_HOST.'/writer/active_task_info';
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"timeout"=>1200));
         return self::response_by_get($response);
     }
 
     public static function get_task($api_key,$args)
     {
-        $search_url = self::$WARP_NLP_HOST.'latest/writer/task?task_id='.$args;
+        $search_url = self::$WARP_NLP_HOST.'/writer/task?task_id='.$args;
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"timeout"=>1200));
         return self::response_by_get($response);
     }
 
     public static function get_tasks($api_key)
     {
-        $search_url = self::$WARP_NLP_HOST.'latest/writer/history?top=20';
+        $search_url = self::$WARP_NLP_HOST.'/writer/history?top=20';
         $response = wp_remote_get($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"timeout"=>1200));
         return self::response_by_get($response);
     }
@@ -181,7 +178,7 @@ class Helper
      */
     public static function get_task_status($api_key,$args)
     {
-        $search_url = self::$WARP_NLP_HOST.'latest/writer/task_status';
+        $search_url = self::$WARP_NLP_HOST.'/writer/task_status';
         $response = wp_remote_post($search_url,array("headers"=>array("X-API-Key"=>$api_key,"Content-Type"=>"application/json"),"body"=>$args,"timeout"=>1200));
         return self::response($response);
     }
